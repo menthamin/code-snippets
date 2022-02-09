@@ -1,0 +1,1 @@
+cat StudentsPerformance.csv | awk -F ',' '{print $8}' | head -n 5
