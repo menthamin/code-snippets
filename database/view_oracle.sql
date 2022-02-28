@@ -90,3 +90,7 @@ SELECT * FROM V$LIBRARYCACHE;
 
 SELECT * FROM DASH_DOWNLOAD_MST
 WHERE user_id = '1133';
+
+-- 튜닝대상 뽑기좋은
+-- sql DW라고 생각하자
+SELECT * FROM v$sql;
