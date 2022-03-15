@@ -14,6 +14,9 @@
     Modify: 2022-03-08 22:17:58.649379096 +0900
     Change: 2022-03-08 22:17:58.649379096 +0900
     Birth: -
+    
+    출처: https://wikidocs.net/3715
+    참고자료: https://docs.python.org/3/library/os.path.html
 
 """
 
