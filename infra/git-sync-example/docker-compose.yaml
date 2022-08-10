@@ -1,0 +1,48 @@
+---
+version: '3.4'
+
+x-common:
+  &common
+  image: registry/git-sync:tag__linux_arm64
+  user: "$USER_ID:0"
+  env_file:
+    - .env
+  environment:
+    - GIT_SYNC_USERNAME=$GIT_SYNC_USERNAME
+    - GIT_SYNC_PASSWORD=$GIT_SYNC_PASSWORD
+
+
+services:
+  config:
+    <<: *common
+    container_name: git-sync-config
+    volumes:
+      - "$PWD/config:/tmp/git"
+      - "$PWD/sparse-checkout-config:/tmp/sparse-checkout-config"
+    environment:
+      - GIT_SYNC_REPO=https://github.com/menthamin/git-sync-sample.git
+      - GIT_SYNC_ROOT=/tmp/git
+      - GIT_SYNC_SPARSE_CHECKOUT_FILE=/tmp/sparse-checkout-config
+      - GIT_SYNC_PERIOD=30s
+  dags:
+    <<: *common
+    container_name: git-sync-dags
+    volumes:
+      - "$PWD/dags:/tmp/git"
+      - "$PWD/sparse-checkout-dags:/tmp/sparse-checkout-dags"
+    environment:
+      - GIT_SYNC_REPO=https://github.com/menthamin/git-sync-sample.git
+      - GIT_SYNC_ROOT=/tmp/git
+      - GIT_SYNC_SPARSE_CHECKOUT_FILE=/tmp/sparse-checkout-dags
+      - GIT_SYNC_PERIOD=30s
+  plugins:
+    <<: *common
+    container_name: git-sync-plugins
+    volumes:
+      - "$PWD/plugins:/tmp/git"
+      - "$PWD/sparse-checkout-plugins:/tmp/sparse-checkout-plugins"
+    environment:
+      - GIT_SYNC_REPO=https://github.com/menthamin/git-sync-sample.git
+      - GIT_SYNC_ROOT=/tmp/git
+      - GIT_SYNC_SPARSE_CHECKOUT_FILE=/tmp/sparse-checkout-plugins
+      - GIT_SYNC_PERIOD=30s
