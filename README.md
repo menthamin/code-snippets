@@ -1,2 +1,2 @@
-# Sample_code
+# code-snippets
 - sample_code 모음
