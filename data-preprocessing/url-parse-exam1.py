@@ -6,10 +6,18 @@
 from urllib.parse import parse_qs, urlparse
 from pprint import pprint
 
-url1 = urlparse("https://search.shopping.naver.com/best/category/click?categoryCategoryId=ALL&categoryDemo=A00&categoryRootCategoryId=ALL&period=P1D")
-url2 = urlparse("https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000000&categoryDemo=A00&categoryRootCategoryId=50000000&period=P1D")
-url3 = urlparse("https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000167&categoryChildCategoryId=&categoryDemo=A00&categoryMidCategoryId=50000167&categoryRootCategoryId=50000000&period=P1D")
-url4 = urlparse("https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000778&categoryChildCategoryId=50000778&categoryDemo=A00&categoryMidCategoryId")
+url1 = urlparse(
+    "https://search.shopping.naver.com/best/category/click?categoryCategoryId=ALL&categoryDemo=A00&categoryRootCategoryId=ALL&period=P1D"
+)
+url2 = urlparse(
+    "https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000000&categoryDemo=A00&categoryRootCategoryId=50000000&period=P1D"
+)
+url3 = urlparse(
+    "https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000167&categoryChildCategoryId=&categoryDemo=A00&categoryMidCategoryId=50000167&categoryRootCategoryId=50000000&period=P1D"
+)
+url4 = urlparse(
+    "https://search.shopping.naver.com/best/category/click?categoryCategoryId=50000778&categoryChildCategoryId=50000778&categoryDemo=A00&categoryMidCategoryId"
+)
 
 
 dict_url1 = parse_qs(url1.query)
