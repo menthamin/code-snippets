@@ -133,3 +133,6 @@ dmypy.json
 
 # Etc
 .DS_Store
+
+# Do not commimt
+not_commit_*

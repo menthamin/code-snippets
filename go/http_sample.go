@@ -18,7 +18,6 @@ type Person struct {
     Age  int
 }
 
-
 func main() {
 	person := Person{"Alex", 10}
     pbytes, _ := xml.Marshal(person)
