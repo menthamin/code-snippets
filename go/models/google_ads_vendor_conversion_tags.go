@@ -21,11 +21,11 @@ type GoogleAdsVendorConversionTags struct {
 	ConversionTagLabel			string		`orm:"column(conversion_tag_label);" json:"conversion_tag_label,omitempty"`
 	CreatedAt 				*time.Time 	`orm:"column(created_at);type(timestamp);auto_now_add;null" json:"createdAt,omitempty"`
 	UpdatedAt 				*time.Time 	`orm:"column(updated_at);type(timestamp);auto_now;null" json:"updatedAt,omitempty"`
-	DeleteAt  				*time.Time 	`orm:"column(deleted_at);type(timestamp);null" json:"deleteAt,omitempty"`
+	DeletedAt  				*time.Time 	`orm:"column(deleted_at);type(timestamp);null" json:"deleteAt,omitempty"`
 }
 
 
 // TableName -
 func (t *GoogleAdsVendorConversionTags) TableName() string {
-	return "`tokotalk`.`google_ads_vendor_conversion_tags`"
+	return "google_ads_vendor_conversion_tags"
 }
