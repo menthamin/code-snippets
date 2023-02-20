@@ -136,3 +136,6 @@ dmypy.json
 
 # Do not commimt
 not_commit_*
+
+# Test
+plugo_*
