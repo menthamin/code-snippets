@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <H1>If you click the "Count Up" button, then the couter raise</H1>
+        <div id="app">
+            <div>
+                <p> {{count}} </p>
+                <button v-on:click="countUp">Count Up</button>
+                <button v-on:click="countDown">Count Up</button>
+            </div>
+            <div">
+                <button v-on:click="countReset">Count Reset</button>
+            </div>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: '#app',  // Q: Can I use multiple elements?
+                data: {
+                    count: 0
+                },
+                methods: {
+                    countUp: function() {
+                        this.count += 1;
+                    },
+                    countDown: function() {
+                        if (this.count > 0) {
+                            this.count -= 1;
+                        } else {
+                            alert("The counter is already 0");
+                        }
+                    },
+                    countReset: function() {
+                        alert("The counter is reset to 0") // TO-DO: Choise to reset or not
+                        this.count = 0;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
