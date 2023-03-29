@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <H1>Show binding data</H1>
+        <div id="app">
+            {{ $data}}
+            <hr>
+            <h1>List</h1>
+            <div v-for="(item, key) in $data">
+                <li>{{ key }} : {{ item }}</li>
+                <hr>
+            </div>
+        </div>
+    </body>
+        <script>
+            var teaList = [
+                {name:'다즐링', price:3000},
+                {name:'얼그레이', price:5000},
+                {name:'실론', price:4000}
+            ];
+
+            new Vue({
+                el: '#app',
+                data: {
+                    myTea: teaList,
+                    myText: "Hello World",
+                    myNumber: 777,
+                    myBool: true,
+                    myArrary: ['a', 'b', 'c']
+                }
+            })
+        </script>
+</html>
+    

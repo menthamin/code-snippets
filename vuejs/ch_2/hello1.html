@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <H1>Show binding data</H1>
+        <div id="app">
+            <div>
+                <p> {{ myText }} </p>
+            </div>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    myText: "Hello World"
+                }
+            })
+        </script>
+</html>
+    
