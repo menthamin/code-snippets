@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>v-bind</h1>
+        <div id="app">
+            <p class="strike-through">direct class</p>
+            <br>
+            <p v-bind:class="myClass">v-bind class</p>
+            <p v-bind:class="[myClass, dardClass]">v-bind two class</p>
+            <p v-bind:class="{'strike-through': isOn}">class on/off using data</p>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    myClass: 'strike-through',
+                    dardClass: 'dark',
+                    isOn: true
+                }
+            })
+        </script>
+    <style>
+        .strike-through {
+            text-decoration: line-through;
+            color:lightgrey
+        }
+        .dark {
+            background-color:gray;
+        }
+    </style>
+</html>
+    

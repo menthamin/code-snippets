@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>v-bind</h1>
+        <div id="app">
+            <p align="left" style="color: rgb(255,150,150); font-size: 200%; background-color: blue;">direct color</p>
+            <br>
+            <p v-bind:align="myAlign" v-bind:style="{ color: myColor, fontSize: mySize, backgroundColor: myBackColor}">using v-bind</p>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    myAlign: "left",
+                    myColor: "rgb(255, 0, 0)",
+                    mySize: "200%",
+                    myBackColor: "aqua"
+                }
+            })
+        </script>
+</html>
+    
