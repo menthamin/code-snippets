@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>watch</h1>
+        <div id="app">
+            <h2>남은 시간이 0초가 되면 얼럿을 띄우는 예제</h2>
+            <button onclick="startTimer()">시작</button>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    forbiddenText: "안되",
+                    inputText: "오늘은 날씨가 좋습니다."
+                },
+                watch: {
+                    inputText: function() {
+                        var pos = this.inputText.indexOf(this.forbiddenText);
+                        if (pos >= 0) {
+                            alert(this.forbiddenText + "는 입력할 수 없습니다.");
+                            this.inputText = this.inputText.substr(0, pos);
+                        }
+                    },
+                },
+            })
+        </script>
+</html>
+    
