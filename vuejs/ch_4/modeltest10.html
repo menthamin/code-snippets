@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>v-model</h1>
+        <div id="app">
+            <input v-model.lazy="myText">
+            <p>입력 후 표시 {{ myText }}</p>
+            <input v-model.number="myNumber">
+            <p>111을 더해서 표시 {{ myNumber + 111 }}</p>
+            <input v-model.trim="myTrimText">
+            <p>Trim 후 표시 {{ myTrimText }}</p>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    myText: "",
+                    myNumber: 0,
+                    myTrimText: ""
+                }
+            })
+        </script>
+</html>
+    
