@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>v-model</h1>
+        <div id="app">
+            <label>
+                <input type="radio" value="red" v-model="picked">
+                Red
+            </label>
+            <br>
+            <label>
+                <input type="radio" value="green" v-model="picked">
+                Green
+            </label>
+            <br>
+            <label>
+                <input type="radio" value="blue" v-model="picked">
+                Blue
+            </label>
+            <br>
+            {{ picked }} is selected.
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    picked: false,
+                }
+            })
+        </script>
+</html>
+    

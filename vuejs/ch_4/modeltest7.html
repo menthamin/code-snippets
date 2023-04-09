@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>v-model</h1>
+        <div id="app">
+            <label>
+                <input type="radio" value="cat.jpeg" v-model="picked">
+                Cat
+            </label>
+            <br>
+            <label>
+                <input type="radio" value="no" v-model="picked">
+                No
+            </label>
+            <br>
+            <p> {{ picked }} </p>
+            <img v-bind:src="picked"></div>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    picked: "",
+                }
+            })
+        </script>
+</html>
+    
