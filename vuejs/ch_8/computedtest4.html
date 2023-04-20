@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>computed</h1>
+        <div id="app">
+            <input v-model="findWord">
+            <ul>
+                <li v-for="item in findItems">
+                    {{ item }}
+                </li>
+            </ul>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    findWord: "",
+                    items: ["설악산", "한라산", "북한산", "광교산", "팔달산", "한라산", "치악산"]
+                },
+                computed: {
+                    findItems: function() {
+                        if (this.findWord) {
+                            return this.items.filter(function(value) {
+                                return (value.indexOf(this.findWord) > -1);
+                            }, this);
+                        } else {
+                            return this.items;
+                        }
+                    },
+                },
+            })
+        </script>
+</html>
+    

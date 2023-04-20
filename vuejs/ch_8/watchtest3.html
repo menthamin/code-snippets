@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h2>값은 {{ animeNumber }} 입니다. </h2>
+            <h2>tweendNumber {{ tweendNumber.toFixed(3) }} </h2>
+            <input v-model.number="myNumber" type="number">
+            <p> myNumber {{ myNumber }}, tweendNumber {{ tweendNumber }} </p>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                myNumber: 0,
+                tweendNumber: 0
+            },
+            // 메소드의 재실행
+            watch: {
+                myNumber: function() {
+                    TweenMax.to(this.$data, 10, {tweendNumber: this.myNumber});
+                }
+            },
+            // 프로퍼티 값 변경시 자동 재계산
+            computed: {
+                animeNumber: function() {
+                    return this.tweendNumber.toFixed(0);
+                }
+            },
+        })
+    </script>
+</html>

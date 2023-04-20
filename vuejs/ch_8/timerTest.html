@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>watch</h1>
+        <div id="app">
+            <h2>남은 시간이 0초가 되면 얼럿을 띄우는 예제</h2>
+            <button onclick="startTimer()">시작</button>
+        </div>
+        <script>
+            function startTimer() {
+                this.restSec = 5;
+                // 1초에 한번씩 countDown()을 실행
+                this.timerObj = setInterval(() => { countDown() }, 1000)
+            }
+            function countDown() {
+                this.restSec --;
+                if (this.restSec <= 0) {
+                    alert("시간이 종료되었습니다.");
+                    clearInterval(this.timerObj);
+                }
+            }
+        </script>
+    </body>
+</html>
+    
