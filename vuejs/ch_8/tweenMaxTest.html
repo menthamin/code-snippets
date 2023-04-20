@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h2>TweenMax Test</h2>
+            <button id="movebtn" type="button" onclick="myMove()">이동</button>
+        </div>
+        <script>
+            function myMove() {
+                TweenMax.to("#movebtn", 0.5, {x: "500px", y: "500px", backgroundColor: "red"});
+            }
+        </script>
+    </body>
