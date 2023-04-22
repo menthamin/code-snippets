@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
+    </head>
+    <body>
+        <h1>ToDo List</h1>
+        <div id="app">
+            <div v-for="todo in todos">
+                <label>
+                    <input type="checkbox" v-model="todo.done">
+                    <span v-bind:class="{'done-style':todo.done}">{{todo.text}}</span>
+                </label>
+            </div>
+            <input type="text" v-model.trim="addText" v-on:keyup.enter="addToDo" placeholder="할일">
+            <p><button v-on:click="addToDo">할일 추가</button></p>
+            <p><button v-on:click="clienToDo">처리완료 삭제</button></p>
+            <p>{{ remaining }} / {{ todos.length }}건 처리</p>
+
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    addText:"",
+                    todos: [
+                        {done:false, text:"Vue.js"},
+                        {done:false, text:"2 Weeks Retrospective"},
+                        {done:false, text:"Meet Friends"}
+                    ]
+                },
+                computed: {
+                    remaining: function() {
+                        return this.todos.filter(function(todo) {
+                            return todo.done;
+                        }).length;
+                    }
+                },
+                methods: {
+                    addToDo: function() {
+                        console.log("Add Todo", this.addText);
+                        if (this.addText) {
+                            this.todos.push({done:false, text:this.addText});
+                            this.addText = "";
+                        }
+                    },
+                    clienToDo: function() {
+                        this.todos = this.todos.filter(function(todo) {
+                            return todo.done === false;
+                        })
+                    }
+                }
+            });
+        </script>
+</html>
+
+<style>
+    /* 나타나고 있을 때와 사라질 때는 0.5초 */
+    .done-style {
+        text-decoration: line-through;
+        color: lightgreen;
+    }
+</style>

@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
+    </head>
+    <body>
+        <h1>ToDo List</h1>
+        <div id="app">
+            <div v-for="(todo, index) in todos">
+                <label>
+                    <input type="checkbox" v-model="todo.done">
+                    <span v-bind:class="{'done-style':todo.done}">{{todo.text}} (DueDate: {{todo.duedate}})</span>
+                    <button v-on:click="postponeDuedate(index)">연기</button>
+                </label>
+            </div>
+            <p>
+                <input type="text" v-model.trim="addText" placeholder="할일"> / 
+                <input type="text" v-model.trim="addDueDate" placeholder="마감기한(YYYY-MM-DD)">
+            </p>
+            <p>
+                <button v-on:click="addToDo">할일 추가</button>
+                <button v-on:click="cleanToDo">처리완료 삭제</button>
+                <button v-on:click="sortDuedate">Due Date 순으로 정렬</button>
+            </p>
+            <p>{{ remaining }} / {{ todos.length }}건 처리</p>
+
+        </div>
+    </body>
+        <script>
+            function formatDate(date = new Date()) {
+                // const year = date.toLocaleString('default', {year: 'numeric'});
+                const year = date.getFullYear();
+                // const month = date.toLocaleString('default', {month: '2-digit'});
+                const month = (date.getMonth() + 1).toString().padStart(2, "0");
+                // const day = date.toLocaleString('default', {day: '2-digit'});
+                const day = date.getDate() + 1;
+              
+                return [year, month, day].join('-');
+              }
+              
+            new Vue({
+                el: "#app",
+                data: {
+                    addText: "",
+                    addDueDate: "",
+                    todos: [
+                        {done:false, text:"Vue.js", duedate: "2023-04-22"},
+                        {done:false, text:"2 Weeks Retrospective", duedate: "2023-04-22"},
+                        {done:false, text:"Meet Friends", duedate: "2023-04-22"}
+                    ]
+
+                },
+                computed: {
+                    remaining: function() {
+                        return this.todos.filter(function(todo) {
+                            return todo.done;
+                        }).length;
+                    }
+                },
+                methods: {
+                    addToDo: function() {
+                        console.log("Add Todo", this.addText);
+                        if (this.addText) {
+                            if (!this.addDueDate) {
+                                // this.addDueDate = formatDate();
+                                var today = new Date();
+                                today.setDate(today.getDate() + 1);
+                                console.log(today);
+                                this.addDueDate = today.toISOString().substring(0, 10);
+                            }
+                            this.todos.push({done: false, text: this.addText, duedate: this.addDueDate});
+                            this.addText = "";
+                            this.addDueDate = "";
+                        }
+                    },
+                    cleanToDo: function() {
+                        this.todos = this.todos.filter(function(todo) {
+                            return todo.done === false;
+                        })
+                    },
+                    postponeDuedate: function(index) {
+                        var newDueDate = new Date(Date.parse(this.todos[index].duedate))
+                        // Date.parse return unix time, so I need to convet it to date object
+                        newDueDate.setDate(newDueDate.getDate() + 1);
+                        this.todos[index].duedate = newDueDate.toISOString().substring(0, 10);
+                    },
+                    sortDuedate: function() {
+                        console.log("not sorted:", this.todos);
+                        this.todos.sort(function(a, b) {
+                            console.log(a, b);
+                            return (a.duedate < b.duedate ? -1 : 1);
+                        })
+                        console.log("sorted:", this.todos);
+                    }
+                }
+            });
+        </script>
+</html>
+
+<style>
+    /* 나타나고 있을 때와 사라질 때는 0.5초 */
+    .done-style {
+        text-decoration: line-through;
+        color: lightgreen;
+    }
+</style>
