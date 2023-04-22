@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    </head>
+    <body>
+        <h1>Componet Example</h1>
+        <div id="app">
+            <my-component v-for="(name, idx) in nameList" v-bind:my-name="name"></my-component>
+        </div>
+    </body>
+        <script>
+            var MyComponent = {
+                template: `
+                    <div>
+                        <p class="my-comp">{{ message }} Props {{ myName }} </p>
+                        <button v-on:click="reverseMessage">Reverse Message</button>
+                    </div>
+                `,
+                data: function() {
+                    return {
+                        title: "Component Example",
+                        message: "Hello Vue.js!",
+                    }
+                },
+                props: {
+                    myName: {
+                        type: String,
+                        default: "default name",
+                    }
+                },
+                created: function () {
+                    if (this.myName === null) {
+                        this.myName = "No Name";
+                    }
+                },
+                methods: {
+                    reverseMessage: function() {
+                        this.message = this.message.split('').reverse().join('');
+                    }
+                }
+            }
+            new Vue({
+                el: "#app",
+                components: {
+                    'my-component': MyComponent,
+                },
+                data: {
+                    nameList: ["JM", "sj", "jj", null],
+                }
+            })
+        </script>
+</html>
+
+<style>
+    .my-comp {
+        width: 300px;
+        background-color: antiquewhite;
+        border: solid;
+        border-color: darkorange;
+        border-radius: 8px;
+        padding: 8px;
+    }
+</style>

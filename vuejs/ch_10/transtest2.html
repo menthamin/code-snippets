@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue.js</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Transition Test 2</h1>
+            <transition-group>
+                <li v-for="item in dataArray" v-bind:key="item"> {{item}} </li>
+            </transition-group>
+            <label><input v-model="addItem" placeholder="Enter Adding List"></label>
+            <button v-on:click="addList">Add</button>
+            <button v-on:click="removeLast">Remove Last One</button>
+        </div>
+    </body>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    dataArray: ['One', 'Two', 'Three', 'Four', 'Five'],
+                    addItem: "",
+                },
+                methods: {
+                    addList: function() {
+                        this.dataArray.push(this.addItem);
+                        this.addItem = "";
+                    },
+                    removeLast: function() {
+                        // this.dataArray.pop();
+                        var lastIdx = this.dataArray.length - 1;
+                        this.dataArray.splice(lastIdx, 1);
+                    }
+                }
+            });
+        </script>
+</html>
+
+<style>
+    /* 나타나고 있을 때와 사라질 때는 0.5초 */
+    .v-enter-active, .v-leave-active {
+        transition: 0.5s;
+    }
+    /* 나타나기 전의 상태와 사라진 상태는 투명도가 0, 오른쪽으로 50 이동 */
+    .v-enter, .v-leave-to {
+        opacity: 0;
+        transform: translateX(100px)
+    }
+</style>
+    
