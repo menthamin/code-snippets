@@ -1,0 +1,200 @@
+<my-board-list 
+    v-if="listOk"
+    v-bind:object="dataArray['board']" 
+    v-on:board-read="boardRead"
+    v-on:board-write="boardWrite"
+    v-on:board-delete="boardDelete"
+></my-board-list>
+<my-board-raed
+    v-if="readOk"
+    v-bind:object="boardInfo"
+    v-on:board-list="boardList"
+></my-board-raed>
+<my-board-write
+    v-if="writeOk"
+    v-on:board-list="boardList"
+    v-on:board-save="boardSave"
+></my-board-write>
+<input type="file" v-on:change="loadData">
+
+data: {
+    dataArray: [],
+    listOk: false,
+    readOk: false,
+    writeOk: false,
+    boardInfo: {},
+},
+components: {
+    'my-board-list': MyBoardList,
+    'my-board-raed': MyBoardRead,
+    'my-board-write': MyBoardWrite,
+},
+methods: {
+    loadData: function(e) {
+        file = e.targe.files[0];
+        if (file) {
+            var reader = new FileReader();
+            var vm = this;
+            reader.readAsText(file);
+            reader.onload = function(e){
+                vm.dataArray = JSON.parse(e.target.result);
+            };
+            reader.onloadend = function(e) {
+                if(vm.dataArray != null && v.dataArrary['board'].length > 0) {
+                    vm.listOk = true;
+                } else {
+                    vm.listOk = false;
+                }
+            }
+        }
+    },
+    boardList: function() {
+        this.listOk = true;
+        this.readOk = false;
+        this.writeOk = false;
+    },
+    boardWrite: function() {
+        this.listOk = false;
+        this.readOk = false;
+        this.writeOk = true;
+    },
+    boradRead: function(info) {
+        this.listOk = false;
+        this.readOk = true;
+        this.writeOk = false;
+        this.boardInfo = info;
+        // 해당 글을 찾아서 카운트를 올려준다.
+        for(var i=0; i < this.dataArray['board'].length; i++) {
+            if(this.dataArray['board'][i].no == info.no) {
+                this.dataArray['board'][i].view = parseInt(this.dataArray['board'][i].view) + 1;
+            }
+        }
+    },
+    boardSave: function(title, content) {
+        var no = 1;
+        if(this.dataArray['board'].length > 0) {
+            no = parseInt(this.dataArray['board'][this.dataArray['board'].length - 1].no) + 1;
+        }
+        var board_info = {
+            no: no,
+            title: title,
+            content: content,
+            view: "1",
+        };
+        this.dataArray['board'].push(board_info);
+        this.listOk = true;
+        this.readOk = false;
+        this.writeOk = false;
+    },
+    boardDelete: function(no) {
+        for(var i=0; i < this.dataArray['board'].length; i++) {
+            if(this.dataArray['board'][i].no == no) {
+                this.dataArray['board'].splice(i, 1);
+            }
+        }
+    },
+    saveBoardList: function() {
+        var data = this.dataArray;
+
+        if (data.length == 0) {
+            alert("데이터가 없습니다.");
+            return;
+        }
+        var filename = 'board.json';
+
+        if (typeof data === "object") {
+            data = JSON.stringify(data, undefined, 4);
+        }
+
+        var blob = new Blob([data], {type: "text/json;charset=utf-8"}),
+            e = document.createEvent('MouseEvents'),
+            a = document.createElement('a');
+
+        a.download = filename;
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initEvent('click', true, false, window,
+            0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
+    }
+},
+
+var MyBoardList = {
+    props: ["object"],
+    template: '<div><table id="list>\n' +
+        '     <tr>\n' +
+        '       <th style="width:50px">글번호</th>\n' +
+        '       <th>글제목</th>\n' +
+        '       <th style="width:50px">조회수</th>\n' +
+        '       <th style="width:70px"></th>\n' +
+        '     </tr>\n' +
+        '     <tr v-for="item in object" v-bind:key="item.no">' +
+        '       <td>{{ item.no }}</td>\n' +
+        '       <td v-on:click="boardRead(item)">{{ item.title }}</td>\n' +
+        '       <td>{{ item.view }}</td>\n' +
+        '       <td><button v-on:click="boardDelete(item.no)">삭제</button></td></tr>\n' +
+        '     </table>' +
+        '      <button v-on:click="boardWrite" style="float: right;">글쓰기</button></div>',
+
+    methods: {
+        boardRead: function(info) {
+            this.$emit('board-read', info);
+        },
+        boardWrite: function() {
+            this.$emit('board-write');
+        },
+        boardDelete: function(no) {
+            this.$emit('board-delete', no);
+        }
+    }
+};
+
+var MyBoardRead = {
+    props: ["object"],
+    template: '<div><table id="list">\n' +
+        '        <tr>\n' +
+        '          <td style="width:50px">글제목</td>\n' +
+        '          <td>{{object.title}}</td>\n' +
+        '        </tr>\n' +
+        '        <tr style="height:300px">\n' +
+        '           <td colspan="2">{{object.content}}</td>\n' +
+        '        </tr>\n' +
+        '     </table>\n' +
+        '     <button v-on:click="boardList" style="float: right;">목록</button></div>',
+
+    methods: {
+        boardList: function() {
+            this.$emit('board-list');
+        }
+    }
+};
+
+var MyBoardWrite = {
+    template: ' <div>\n +
+        '   <table id="list">\n' +
+        '        <tr>\n' +
+        '          <td style="width:50px">글제목</td>\n' +
+        '          <td><input type="text" v-model="title" sytle="width:90%"></td>\n' +
+        '        </tr>\n' +
+        '        <tr style="height:300px">\n' +
+        '           <td colspan="2"><textarea v-model="content" style="width:100%; height:100%"></textarea></td>\n' +
+        '        </tr>\n' +
+        '     </table>\n' +
+        '     <button v-on:click="boardList" style="float: right;">목록</button>\n' +
+        '     <button v-on:click="boardSave" style="float: right;">저장</button></div>',
+
+    methods: {
+        boardList: function() {
+            this.$emit('board-list');
+        },
+        boardSave: function() {
+            this.$emit('board-save', {title: this.title, content: this.content});
+        }
+    },
+    data: function() {
+        return {
+            title: "",
+            content: "",
+        }
+    }
+};
