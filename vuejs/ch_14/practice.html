@@ -20,11 +20,11 @@
                 v-on:board-write="boardWrite"
                 v-on:board-delete="boardDelete"
             ></my-board-list>
-            <my-board-raed
+            <my-board-read
                 v-if="readOk"
                 v-bind:object="boardInfo"
                 v-on:board-list="boardList"
-            ></my-board-raed>
+            ></my-board-read>
             <my-board-write
                 v-if="writeOk"
                 v-on:board-list="boardList"
@@ -123,7 +123,7 @@
                 },
                 components: {
                     'my-board-list': MyBoardList,
-                    'my-board-raed': MyBoardRead,
+                    'my-board-read': MyBoardRead,
                     'my-board-write': MyBoardWrite,
                 },
                 methods: {
