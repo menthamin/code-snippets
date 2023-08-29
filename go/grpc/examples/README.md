@@ -1,4 +1,4 @@
-# Examples
+**** Examples
 
 The following examples are provided to help users get started with gRPC-Go.
 They are arranged as follows:
@@ -8,3 +8,6 @@ They are arranged as follows:
 * `features` - a collection of examples, each focused on a single gRPC feature
 
 `data` is a directory containing data used by the examples, e.g. TLS certificates.
+
+
+- Reference: https://grpc.io/docs/languages/go/quickstart/
