@@ -11,3 +11,16 @@ They are arranged as follows:
 
 
 - Reference: https://grpc.io/docs/languages/go/quickstart/
+
+
+Test
+```bash
+cd helloworld
+go run greeter_server/main.go
+## From another terminal
+go run greeter_client/main.go --name=Alice
+
+>>
+Greeting: Hello Alice
+Greeting: Hello again Alice
+````
