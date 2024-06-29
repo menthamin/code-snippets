@@ -140,3 +140,6 @@ not_commit_*
 # Test
 plugo_*
 test_*
+
+# node_modules
+node_modules/
